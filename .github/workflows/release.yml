@@ -49,19 +49,12 @@ jobs:
           echo "a-tag_name=$(echo ${{ steps.release.outputs['model/a--tag_name'] }})" >> "$GITHUB_OUTPUT"
           echo "b-release_created=$(echo ${{ steps.release.outputs['model/b--release_created'] }})" >> "$GITHUB_OUTPUT"
           echo "b-tag_name=$(echo ${{ steps.release.outputs['model/b--tag_name'] }})" >> "$GITHUB_OUTPUT"
-  build_publish_a_image:
+  build_publish_backend_image:
     name: Build Publish a Image
     uses: ./.github/workflows/docker.yml
     needs: release_job
     if: needs.release_job.outputs.a-release_created == 'true'
     with:
       image_tag: ${{ needs.release_job.outputs.a-tag_name }}
-      build_context: "a"
-  build_publish_b_image:
-    name: Build Publish b Image
-    uses: ./.github/workflows/docker.yml
-    needs: release_job
-    if: needs.release_job.outputs.b-release_created == 'true'
-    with:
-      image_tag: ${{ needs.release_job.outputs.b-tag_name }}
-      build_context: "b"
+      build_context: "backend"
+ 
