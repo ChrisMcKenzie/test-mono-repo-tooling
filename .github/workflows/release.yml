@@ -7,10 +7,10 @@ on:
         value: ${{ jobs.release_job.outputs.a-release_created }}
       a-tag_name:
         value: ${{ jobs.release_job.outputs.a-tag_name }}
-      b-release_created:
-        value: ${{ jobs.release_job.outputs.b-release_created }}
-      b-tag_name:
-        value: ${{ jobs.release_job.outputs.b-tag_name }}
+      frontend-release_created:
+        value: ${{ jobs.release_job.outputs.frontend-release_created }}
+      frontend-tag_name:
+        value: ${{ jobs.release_job.outputs.frontend-tag_name }}
 
 permissions:
   contents: write
@@ -27,8 +27,8 @@ jobs:
     outputs:
       a-release_created: ${{ steps.create_output.outputs.a-release_created }}
       a-tag_name: ${{ steps.create_output.outputs.a-tag_name }}
-      b-release_created: ${{ steps.create_output.outputs.b-release_created }}
-      b-tag_name: ${{ steps.create_output.outputs.b-tag_name }}
+      frontend-release_created: ${{ steps.create_output.outputs.frontend-release_created }}
+      frontend-tag_name: ${{ steps.create_output.outputs.frontend-tag_name }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -47,8 +47,8 @@ jobs:
         run: |
           echo "a-release_created=$(echo ${{ steps.release.outputs['model/a--release_created'] }})" >> "$GITHUB_OUTPUT"
           echo "a-tag_name=$(echo ${{ steps.release.outputs['model/a--tag_name'] }})" >> "$GITHUB_OUTPUT"
-          echo "b-release_created=$(echo ${{ steps.release.outputs['model/b--release_created'] }})" >> "$GITHUB_OUTPUT"
-          echo "b-tag_name=$(echo ${{ steps.release.outputs['model/b--tag_name'] }})" >> "$GITHUB_OUTPUT"
+          echo "frontend-release_created=$(echo ${{ steps.release.outputs['frontend--release_created'] }})" >> "$GITHUB_OUTPUT"
+          echo "frontend-tag_name=$(echo ${{ steps.release.outputs['frontend--tag_name'] }})" >> "$GITHUB_OUTPUT"
   build_publish_backend_image:
     name: Build Publish a Image
     uses: ./.github/workflows/docker.yml
@@ -57,4 +57,12 @@ jobs:
     with:
       image_tag: ${{ needs.release_job.outputs.a-tag_name }}
       build_context: "backend"
- 
+  build_publish_frontend_image:
+    name: Build Publish a Image
+    uses: ./.github/workflows/docker.yml
+    needs: release_job
+    if: needs.release_job.outputs.frontend-release_created == 'true'
+    with:
+      image_tag: ${{ needs.release_job.outputs.frontend-tag_name }}
+      build_context: "frontend"
+
