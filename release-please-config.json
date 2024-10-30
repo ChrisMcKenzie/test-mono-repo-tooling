@@ -1,0 +1,19 @@
+{
+  "packages": {
+    "backend": {
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "go",
+      "component": "backend"
+    },
+    "frontend": {
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "node",
+      "component": "frontend"
+    },
+    "operator": {
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "helm",
+      "component": "operator"
+    }
+  }
+}
