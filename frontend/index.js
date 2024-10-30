@@ -1,1 +1,1 @@
-console.log("Hello from the frontend!");
+console.log("Hello mom from the frontend!");
