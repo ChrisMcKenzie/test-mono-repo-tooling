@@ -1,0 +1,19 @@
+name: FullWorkflow-PR-frontend
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'frontend/**'
+
+permissions:
+  id-token: write
+  contents: read
+  packages: write
+
+jobs:
+  docker_backend:
+    uses: ./.github/workflows/docker.yml
+    with:
+      build_context: "frontend"
