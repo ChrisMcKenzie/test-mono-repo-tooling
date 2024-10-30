@@ -15,5 +15,4 @@ permissions:
 
 jobs:
   release:
-    needs: [style, tests_a, python_style_a]
     uses: ./.github/workflows/release.yaml
