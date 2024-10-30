@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/ChrisMcKenzie/test-mono-repo-tooling/compare/frontend-v1.0.0...frontend-v1.0.1) (2024-10-30)
+
+
+### Bug Fixes
+
+* frontend message ([7d86e38](https://github.com/ChrisMcKenzie/test-mono-repo-tooling/commit/7d86e38f49f7cbaf943154717bf2fc17289b91aa))
+
 ## 1.0.0 (2024-10-30)
 
 
